@@ -8,7 +8,12 @@
       {
         "Name": "Callie",
         "Age": 20,
-        "Gender": "Female"
+        "Gender": "Female",
+        "Cars": [
+          "Honda",
+          "Hyundai",
+          "BMW"
+        ]
       },
       {
         "Name": "Griffin",
@@ -32,13 +37,21 @@
         "Name": "Howard",
         "Age": 20,
         "Gender": "Male",
-        "Salary": 50
+        "Salary": 50,
+        "Cars": [
+          "Mercedes",
+          "Toyota",
+          "Ford"
+        ]
       },
       {
         "Name": "Robert",
         "Age": 29,
         "Gender": "Male",
-        "Salary": 400
+        "Salary": 400,
+        "Cars": [
+          "Mazda"
+        ]
       }
     ]
   },
@@ -58,7 +71,11 @@
         "Name": "Roxanne",
         "Age": 33,
         "Gender": "Female",
-        "Salary": 300
+        "Salary": 300,
+        "Cars": [
+          "Volkswagen",
+          "Skoda"
+        ]
       },
       {
         "Name": "Claudia",
@@ -69,7 +86,11 @@
         "Name": "Denzel",
         "Age": 11,
         "Gender": "Male",
-        "Salary": 200
+        "Salary": 200,
+        "Cars": [
+          "Honda",
+          "MG"
+        ]
       }
     ]
   }

@@ -5,10 +5,7 @@ import models.Child;
 import models.PersonRecord;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class FunctionalExample {
@@ -52,6 +49,20 @@ public class FunctionalExample {
                 Collectors.mapping(PersonRecord::getFirstname, Collectors.toList())));
   }
 
+  //  5. Get children name who have specific car make
+  public static List<String> getChildrenNameWhoHaveSpecificCarMake(
+      PersonRecord[] personRecords, String carMake) {
+    return Arrays.stream(personRecords)
+        .flatMap(personRecord -> personRecord.getChildren().stream())
+        .collect(
+            Collectors.filtering(
+                child ->
+                    Optional.ofNullable(child.getCars())
+                        .orElseGet(ArrayList::new)
+                        .contains(carMake),
+                Collectors.mapping(Child::getName, Collectors.toList())));
+  }
+
   public static void main(String[] args) throws IOException {
     var personRecords = JsonHelper.readJsonFile("PersonRecords.json", PersonRecord[].class);
 
@@ -71,5 +82,9 @@ public class FunctionalExample {
     var parentFirstNameWithSalaryMoreThan2000 =
         getFirstParentNameWithTotalSalaryGreaterThan(personRecords, 2000);
     System.out.println(parentFirstNameWithSalaryMoreThan2000);
+
+    var childrenNameWhoHaveSpecificCarMake =
+        getChildrenNameWhoHaveSpecificCarMake(personRecords, "BMW");
+    System.out.println(childrenNameWhoHaveSpecificCarMake);
   }
 }

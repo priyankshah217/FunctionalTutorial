@@ -68,6 +68,24 @@ public class ImperativeExample {
     return parentNames;
   }
 
+  //  5. Get children name who have specific car make
+  public static List<String> getChildrenNameWhoHaveSpecificCarMake(
+      PersonRecord[] personRecords, String carMake) {
+    List<String> childrenNames = new ArrayList<>();
+    for (PersonRecord personRecord : personRecords) {
+      for (Child child : personRecord.getChildren()) {
+        if (child.getCars() != null) {
+          for (String car : child.getCars()) {
+            if (car.equalsIgnoreCase(carMake)) {
+              childrenNames.add(child.getName());
+            }
+          }
+        }
+      }
+    }
+    return childrenNames;
+  }
+
   public static void main(String[] args) throws IOException {
     var personRecords = JsonHelper.readJsonFile("PersonRecords.json", PersonRecord[].class);
 
@@ -87,5 +105,9 @@ public class ImperativeExample {
     var parentFirstNameWithSalaryMoreThan2000 =
         getFirstParentNameWithTotalSalaryGreaterThan(personRecords, 2000);
     System.out.println(parentFirstNameWithSalaryMoreThan2000);
+
+    var childrenNameWhoHaveSpecificCarMake =
+        getChildrenNameWhoHaveSpecificCarMake(personRecords, "BMW");
+    System.out.println(childrenNameWhoHaveSpecificCarMake);
   }
 }
