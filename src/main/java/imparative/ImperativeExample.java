@@ -74,12 +74,8 @@ public class ImperativeExample {
     List<String> childrenNames = new ArrayList<>();
     for (PersonRecord personRecord : personRecords) {
       for (Child child : personRecord.getChildren()) {
-        if (child.getCars() != null) {
-          for (String car : child.getCars()) {
-            if (car.equalsIgnoreCase(carMake)) {
-              childrenNames.add(child.getName());
-            }
-          }
+        if (child.getCars() != null && child.getCars().contains(carMake)) {
+          childrenNames.add(child.getName());
         }
       }
     }
