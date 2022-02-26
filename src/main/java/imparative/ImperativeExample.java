@@ -5,7 +5,10 @@ import models.Child;
 import models.PersonRecord;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ImperativeExample {
   //  1. Fetch All cities from json
