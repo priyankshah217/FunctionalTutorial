@@ -8,9 +8,9 @@ import java.net.URL;
 import java.util.Optional;
 
 public class JsonHelper {
-    public static <T> T readJsonFile(String filePath, Class<T> clazz) throws IOException {
+    public static <T> T readJsonFile(String fileName, Class<T> clazz) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        File file = getFile(filePath);
+        File file = getFile(fileName);
         return mapper.readValue(file, clazz);
     }
 
