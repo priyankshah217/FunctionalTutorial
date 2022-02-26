@@ -1,0 +1,76 @@
+[
+  {
+    "Firstname": "John",
+    "Lastname": "Smith",
+    "City": "Boston",
+    "State": "MA",
+    "Children": [
+      {
+        "Name": "Callie",
+        "Age": 20,
+        "Gender": "Female"
+      },
+      {
+        "Name": "Griffin",
+        "Age": 24,
+        "Gender": "Female"
+      },
+      {
+        "Name": "Luke",
+        "Age": 30,
+        "Gender": "Male"
+      }
+    ]
+  },
+  {
+    "Firstname": "Henry",
+    "Lastname": "Rhodes",
+    "City": "New York",
+    "State": "NY",
+    "Children": [
+      {
+        "Name": "Howard",
+        "Age": 20,
+        "Gender": "Male",
+        "Salary": 50
+      },
+      {
+        "Name": "Robert",
+        "Age": 29,
+        "Gender": "Male",
+        "Salary": 400
+      }
+    ]
+  },
+  {
+    "Firstname": "Allison",
+    "Lastname": "Berman",
+    "City": "Los Angeles",
+    "State": "CA",
+    "Children": [
+      {
+        "Name": "Jeff",
+        "Age": 35,
+        "Gender": "Male",
+        "Salary": 100
+      },
+      {
+        "Name": "Roxanne",
+        "Age": 33,
+        "Gender": "Female",
+        "Salary": 300
+      },
+      {
+        "Name": "Claudia",
+        "Age": 31,
+        "Gender": "Female"
+      },
+      {
+        "Name": "Denzel",
+        "Age": 11,
+        "Gender": "Male",
+        "Salary": 200
+      }
+    ]
+  }
+]
