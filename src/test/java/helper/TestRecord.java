@@ -7,8 +7,9 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 public class TestRecord {
-    @JsonProperty("color")
-    private String color;
-    @JsonProperty("value")
-    private String value;
+  @JsonProperty("color")
+  private String color;
+
+  @JsonProperty("value")
+  private String value;
 }
