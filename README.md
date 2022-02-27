@@ -12,7 +12,7 @@ Used above json, and solve above queries
 5. Get children name who have specific car make
 6. Person with most cars
 
-Imparative style:
+Imperative style:
 https://github.com/priyankshah217/FunctionalTutorial/blob/main/src/main/java/imparative/ImperativeExample.java
 
 Functional style:
