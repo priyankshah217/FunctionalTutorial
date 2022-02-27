@@ -4,6 +4,7 @@ Writing code using Imperative vs Functional way
 
 
 https://github.com/priyankshah217/FunctionalTutorial/blob/main/src/main/resources/PersonRecords.json
+
 Used above json, and solve above queries
 1. Fetch All cities from json
 2. Fetch Female child names
