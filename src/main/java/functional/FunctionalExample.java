@@ -32,6 +32,11 @@ public class FunctionalExample {
     return Arrays.stream(personRecords).map(PersonRecord::getCity).toList();
   }
 
+  // Fetch distinct Cars names (use of distinct)
+  public static List<String> getDistinctCars(PersonRecord[] personRecords) {
+    return getAllCars(personRecords).stream().distinct().toList();
+  }
+
   //  Fetch Female child names
   public static List<String> getAllFemaleChildNames(PersonRecord[] personRecords) {
     return Arrays.stream(personRecords)
@@ -109,6 +114,9 @@ public class FunctionalExample {
 
     var allCars = getAllCars(personRecords);
     System.out.println(allCars);
+
+    var distinctCars = getDistinctCars(personRecords);
+    System.out.println(distinctCars);
 
     var cities = getCities(personRecords);
     System.out.println(cities);

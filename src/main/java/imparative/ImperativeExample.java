@@ -34,6 +34,12 @@ public class ImperativeExample {
     return carNames;
   }
 
+  // Fetch distinct Cars names
+  public static List<String> getDistinctCars(PersonRecord[] personRecords) {
+    List<String> allCars = getAllCars(personRecords);
+    return new ArrayList<>(new HashSet<>(allCars));
+  }
+
   //  Fetch All cities from json
   public static List<String> getCities(PersonRecord[] personRecords) {
     List<String> cityList = new ArrayList<>();
@@ -131,6 +137,9 @@ public class ImperativeExample {
 
     var allCars = getAllCars(personRecords);
     System.out.println(allCars);
+
+    var distinctCars = getDistinctCars(personRecords);
+    System.out.println(distinctCars);
 
     var cities = getCities(personRecords);
     System.out.println(cities);
