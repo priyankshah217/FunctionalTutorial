@@ -8,7 +8,33 @@ import java.io.IOException;
 import java.util.*;
 
 public class ImperativeExample {
-  //  1. Fetch All cities from json
+
+  //  Fetch list of names who stays in "Boston"
+  public static List<String> getPersonNameWhoStaysInCity(
+      PersonRecord[] personRecords, String city) {
+    List<String> personNameList = new ArrayList<>();
+    for (PersonRecord personRecord : personRecords) {
+      if (personRecord.getCity().equalsIgnoreCase(city)) {
+        personNameList.add(personRecord.getFirstname() + " " + personRecord.getLastname());
+      }
+    }
+    return personNameList;
+  }
+
+  // Fetch All Cars names
+  public static List<String> getAllCars(PersonRecord[] personRecords) {
+    List<String> carNames = new ArrayList<>();
+    for (PersonRecord personRecord : personRecords) {
+      for (Child child : personRecord.getChildren()) {
+        if (child.getCars() != null) {
+          carNames.addAll(child.getCars());
+        }
+      }
+    }
+    return carNames;
+  }
+
+  //  Fetch All cities from json
   public static List<String> getCities(PersonRecord[] personRecords) {
     List<String> cityList = new ArrayList<>();
     for (PersonRecord personRecord : personRecords) {
@@ -17,7 +43,7 @@ public class ImperativeExample {
     return cityList;
   }
 
-  //  2. Fetch Female child names
+  //  Fetch Female child names
   public static List<String> getAllFemaleChildNames(PersonRecord[] personRecords) {
     List<String> femaleChildNameList = new ArrayList<>();
     for (PersonRecord personRecord : personRecords) {
@@ -30,7 +56,7 @@ public class ImperativeExample {
     return femaleChildNameList;
   }
 
-  //  3. Get List of parent name with their children's total salary
+  //  Get List of parent name with their children's total salary
   public static Map<String, Integer> getParentNamesWithTotalSalary(PersonRecord[] personRecords) {
     Map<String, Integer> parentNameWithTotalSalary = new HashMap<>();
     int totalSalary;
@@ -46,7 +72,7 @@ public class ImperativeExample {
     return parentNameWithTotalSalary;
   }
 
-  //  4. Get first parent name whose children's total salary is greater than 2000
+  //  Get first parent name whose children's total salary is greater than 2000
   public static List<String> getFirstParentNameWithTotalSalaryGreaterThan(
       PersonRecord[] personRecords, int salary) {
     List<String> parentNames = new ArrayList<>();
@@ -65,7 +91,7 @@ public class ImperativeExample {
     return parentNames;
   }
 
-  //  5. Get children name who have specific car make
+  //  Get children name who have specific car make
   public static List<String> getChildrenNameWhoHaveSpecificCarMake(
       PersonRecord[] personRecords, String carMake) {
     List<String> childrenNames = new ArrayList<>();
@@ -79,7 +105,7 @@ public class ImperativeExample {
     return childrenNames;
   }
 
-  //  6. Person with most cars
+  //  Person with most cars
   public static String getPersonWithMostCars(PersonRecord[] personRecords) {
     Map<String, Integer> personWithCars = new HashMap<>();
     for (PersonRecord personRecord : personRecords) {
@@ -97,7 +123,14 @@ public class ImperativeExample {
   }
 
   public static void main(String[] args) throws IOException {
+
     var personRecords = JsonHelper.readJsonFile("PersonRecords.json", PersonRecord[].class);
+
+    var personNameList = getPersonNameWhoStaysInCity(personRecords, "Boston");
+    System.out.println(personNameList);
+
+    var allCars = getAllCars(personRecords);
+    System.out.println(allCars);
 
     var cities = getCities(personRecords);
     System.out.println(cities);

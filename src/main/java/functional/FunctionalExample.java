@@ -9,12 +9,30 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class FunctionalExample {
-  //  1. Fetch All cities from json
+
+  //  Fetch list of names who stays in "Boston" (use of filter)
+  public static List<String> getPersonNameWhoStaysInCity(
+      PersonRecord[] personRecords, String city) {
+    return Arrays.stream(personRecords)
+        .filter(personRecord -> personRecord.getCity().equalsIgnoreCase(city))
+        .map(personRecord -> personRecord.getFirstname() + " " + personRecord.getLastname())
+        .toList();
+  }
+
+  // Fetch All Cars names (use of flatmap)
+  public static List<String> getAllCars(PersonRecord[] personRecords) {
+    return Arrays.stream(personRecords)
+        .flatMap(personRecord -> personRecord.getChildren().stream())
+        .flatMap(child -> Optional.ofNullable(child.getCars()).orElseGet(ArrayList::new).stream())
+        .collect(Collectors.toList());
+  }
+
+  //  Fetch All cities from json (use of map)
   public static List<String> getCities(PersonRecord[] personRecords) {
     return Arrays.stream(personRecords).map(PersonRecord::getCity).toList();
   }
 
-  //  2. Fetch Female child names
+  //  Fetch Female child names
   public static List<String> getAllFemaleChildNames(PersonRecord[] personRecords) {
     return Arrays.stream(personRecords)
         .flatMap(personRecord -> personRecord.getChildren().stream())
@@ -23,7 +41,7 @@ public class FunctionalExample {
         .toList();
   }
 
-  //  3. Get List of parent name with their children's total salary
+  //  Get List of parent name with their children's total salary
   public static Map<String, Integer> getParentNamesWithTotalSalary(PersonRecord[] personRecords) {
     return Arrays.stream(personRecords)
         .collect(
@@ -35,7 +53,7 @@ public class FunctionalExample {
                         .reduce(0, Integer::sum)));
   }
 
-  //  4. Get first parent name whose children's total salary is greater than 2000
+  //  Get first parent name whose children's total salary is greater than 2000
   public static List<String> getFirstParentNameWithTotalSalaryGreaterThan(
       PersonRecord[] personRecords, int salary) {
     return Arrays.stream(personRecords)
@@ -49,7 +67,7 @@ public class FunctionalExample {
                 Collectors.mapping(PersonRecord::getFirstname, Collectors.toList())));
   }
 
-  //  5. Get children name who have specific car make
+  //  Get children name who have specific car make
   public static List<String> getChildrenNameWhoHaveSpecificCarMake(
       PersonRecord[] personRecords, String carMake) {
     return Arrays.stream(personRecords)
@@ -63,7 +81,7 @@ public class FunctionalExample {
                 Collectors.mapping(Child::getName, Collectors.toList())));
   }
 
-  //  6. Person with most cars
+  //  Person with most cars
   public static String getPersonWithMostCars(PersonRecord[] personRecords) {
     Map<String, Integer> personRecordWithCars =
         Arrays.stream(personRecords)
@@ -83,7 +101,14 @@ public class FunctionalExample {
   }
 
   public static void main(String[] args) throws IOException {
+
     var personRecords = JsonHelper.readJsonFile("PersonRecords.json", PersonRecord[].class);
+
+    var personNameList = getPersonNameWhoStaysInCity(personRecords, "Boston");
+    System.out.println(personNameList);
+
+    var allCars = getAllCars(personRecords);
+    System.out.println(allCars);
 
     var cities = getCities(personRecords);
     System.out.println(cities);
