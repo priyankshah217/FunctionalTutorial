@@ -15,9 +15,8 @@ public class JsonHelper {
   }
 
   private static File getFile(String fileName) throws IOException {
-    ClassLoader classLoader = JsonHelper.class.getClassLoader();
     URL found =
-        Optional.ofNullable(classLoader.getResource(fileName))
+        Optional.ofNullable(ClassLoader.getSystemClassLoader().getResource(fileName))
             .orElseThrow(() -> new IOException("File not found"));
     return new File(found.getFile());
   }

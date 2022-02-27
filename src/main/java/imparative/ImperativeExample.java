@@ -5,10 +5,7 @@ import models.Child;
 import models.PersonRecord;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ImperativeExample {
   //  1. Fetch All cities from json
@@ -82,6 +79,23 @@ public class ImperativeExample {
     return childrenNames;
   }
 
+  //  6. Person with most cars
+  public static String getPersonWithMostCars(PersonRecord[] personRecords) {
+    Map<String, Integer> personWithCars = new HashMap<>();
+    for (PersonRecord personRecord : personRecords) {
+      int noOfCars = 0;
+      for (Child child : personRecord.getChildren()) {
+        if (child.getCars() != null) {
+          noOfCars += child.getCars().size();
+        }
+      }
+      personWithCars.put(personRecord.getFirstname() + " " + personRecord.getLastname(), noOfCars);
+    }
+    LinkedList<Map.Entry<String, Integer>> entries = new LinkedList<>(personWithCars.entrySet());
+    entries.sort(Map.Entry.<String, Integer>comparingByValue().reversed());
+    return entries.get(0).getKey();
+  }
+
   public static void main(String[] args) throws IOException {
     var personRecords = JsonHelper.readJsonFile("PersonRecords.json", PersonRecord[].class);
 
@@ -105,5 +119,8 @@ public class ImperativeExample {
     var childrenNameWhoHaveSpecificCarMake =
         getChildrenNameWhoHaveSpecificCarMake(personRecords, "BMW");
     System.out.println(childrenNameWhoHaveSpecificCarMake);
+
+    var personWithMostCars = getPersonWithMostCars(personRecords);
+    System.out.println(personWithMostCars);
   }
 }

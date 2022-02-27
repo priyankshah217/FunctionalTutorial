@@ -63,6 +63,25 @@ public class FunctionalExample {
                 Collectors.mapping(Child::getName, Collectors.toList())));
   }
 
+  //  6. Person with most cars
+  public static String getPersonWithMostCars(PersonRecord[] personRecords) {
+    Map<String, Integer> personRecordWithCars =
+        Arrays.stream(personRecords)
+            .collect(
+                Collectors.toMap(
+                    personRecord -> personRecord.getFirstname() + " " + personRecord.getLastname(),
+                    personRecord ->
+                        personRecord.getChildren().stream()
+                            .map(
+                                child ->
+                                    Optional.ofNullable(child.getCars()).orElseGet(ArrayList::new))
+                            .map(List::size)
+                            .reduce(0, Integer::sum)));
+    Optional<Map.Entry<String, Integer>> max =
+        personRecordWithCars.entrySet().stream().max(Map.Entry.comparingByValue());
+    return max.map(Map.Entry::getKey).orElse("");
+  }
+
   public static void main(String[] args) throws IOException {
     var personRecords = JsonHelper.readJsonFile("PersonRecords.json", PersonRecord[].class);
 
@@ -86,5 +105,8 @@ public class FunctionalExample {
     var childrenNameWhoHaveSpecificCarMake =
         getChildrenNameWhoHaveSpecificCarMake(personRecords, "BMW");
     System.out.println(childrenNameWhoHaveSpecificCarMake);
+
+    var personWithMostCars = getPersonWithMostCars(personRecords);
+    System.out.println(personWithMostCars);
   }
 }
