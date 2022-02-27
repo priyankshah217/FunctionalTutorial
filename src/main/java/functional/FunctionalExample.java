@@ -24,7 +24,7 @@ public class FunctionalExample {
     return Arrays.stream(personRecords)
         .flatMap(personRecord -> personRecord.getChildren().stream())
         .flatMap(child -> Optional.ofNullable(child.getCars()).orElseGet(ArrayList::new).stream())
-        .collect(Collectors.toList());
+        .toList();
   }
 
   //  Fetch All cities from json (use of map)
