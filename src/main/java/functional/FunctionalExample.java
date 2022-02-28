@@ -27,14 +27,14 @@ public class FunctionalExample {
         .toList();
   }
 
-  //  Fetch All cities from json (use of map)
-  public static List<String> getCities(PersonRecord[] personRecords) {
-    return Arrays.stream(personRecords).map(PersonRecord::getCity).toList();
-  }
-
   // Fetch distinct Cars names (use of distinct)
   public static List<String> getDistinctCars(PersonRecord[] personRecords) {
     return getAllCars(personRecords).stream().distinct().toList();
+  }
+
+  //  Fetch All cities from json (use of map)
+  public static List<String> getCities(PersonRecord[] personRecords) {
+    return Arrays.stream(personRecords).map(PersonRecord::getCity).toList();
   }
 
   //  Fetch Female child names
