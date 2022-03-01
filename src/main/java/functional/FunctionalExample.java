@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.pivovarit.function.ThrowingPredicate.unchecked;
+
 public class FunctionalExample {
 
   //  Fetch list of names who stays in "Boston" (use of filter)
@@ -16,7 +18,7 @@ public class FunctionalExample {
     return Arrays.stream(personRecords)
         .filter(personRecord -> personRecord.getCity().equalsIgnoreCase(city))
         .map(personRecord -> personRecord.getFirstname() + " " + personRecord.getLastname())
-        .toList();
+        .collect(Collectors.toList());
   }
 
   // Fetch All Cars names (use of flatmap)
@@ -24,17 +26,17 @@ public class FunctionalExample {
     return Arrays.stream(personRecords)
         .flatMap(personRecord -> personRecord.getChildren().stream())
         .flatMap(child -> Optional.ofNullable(child.getCars()).orElseGet(ArrayList::new).stream())
-        .toList();
+        .collect(Collectors.toList());
   }
 
   // Fetch distinct Cars names (use of distinct)
   public static List<String> getDistinctCars(PersonRecord[] personRecords) {
-    return getAllCars(personRecords).stream().distinct().toList();
+    return getAllCars(personRecords).stream().distinct().collect(Collectors.toList());
   }
 
   //  Fetch All cities from json (use of map)
   public static List<String> getCities(PersonRecord[] personRecords) {
-    return Arrays.stream(personRecords).map(PersonRecord::getCity).toList();
+    return Arrays.stream(personRecords).map(PersonRecord::getCity).collect(Collectors.toList());
   }
 
   //  Fetch Female child names
@@ -43,7 +45,7 @@ public class FunctionalExample {
         .flatMap(personRecord -> personRecord.getChildren().stream())
         .filter(child -> child.getGender().equalsIgnoreCase("female"))
         .map(Child::getName)
-        .toList();
+        .collect(Collectors.toList());
   }
 
   //  Get List of parent name with their children's total salary
@@ -105,6 +107,20 @@ public class FunctionalExample {
     return max.map(Map.Entry::getKey).orElse("");
   }
 
+  private static boolean checkNoIsOdd(int no) throws Exception {
+    if (no == 0) {
+      throw new Exception("No cannot be zero");
+    }
+    return no % 2 != 0;
+  }
+
+  //  Convert checked exception to unchecked exception (handling checked exception in lambda)
+  private static Integer getSumOfOddNos(List<Integer> integerList) {
+    return integerList.stream()
+        .filter(unchecked(FunctionalExample::checkNoIsOdd))
+        .reduce(0, Integer::sum);
+  }
+
   public static void main(String[] args) throws IOException {
 
     var personRecords = JsonHelper.readJsonFile("PersonRecords.json", PersonRecord[].class);
@@ -141,5 +157,13 @@ public class FunctionalExample {
 
     var personWithMostCars = getPersonWithMostCars(personRecords);
     System.out.println(personWithMostCars);
+
+    List<Integer> integerList = List.of(1, 3, 5, 7, 9, 0, 2, 4, 6, 8, 10);
+    try {
+      Integer sumOfOddNos = getSumOfOddNos(integerList);
+      System.out.println(sumOfOddNos);
+    } catch (RuntimeException e) {
+      System.out.println(e.getClass().getSimpleName());
+    }
   }
 }

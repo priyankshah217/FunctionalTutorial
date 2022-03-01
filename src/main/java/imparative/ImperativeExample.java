@@ -128,6 +128,24 @@ public class ImperativeExample {
     return entries.get(0).getKey();
   }
 
+  private static boolean checkNoIsOdd(int no) throws Exception {
+    if (no == 0) {
+      throw new Exception("No cannot be zero");
+    }
+    return no % 2 != 0;
+  }
+
+  //  Convert checked exception to unchecked exception (handling checked exception in lambda)
+  private static Integer getSumOfOddNos(List<Integer> integerList) throws Exception {
+    int sum = 0;
+    for (Integer integer : integerList) {
+      if (!checkNoIsOdd(integer)) {
+        sum += integer;
+      }
+    }
+    return sum;
+  }
+
   public static void main(String[] args) throws IOException {
 
     var personRecords = JsonHelper.readJsonFile("PersonRecords.json", PersonRecord[].class);
@@ -164,5 +182,13 @@ public class ImperativeExample {
 
     var personWithMostCars = getPersonWithMostCars(personRecords);
     System.out.println(personWithMostCars);
+
+    List<Integer> integerList = List.of(1, 3, 5, 7, 9, 0, 2, 4, 6, 8, 10);
+    try {
+      Integer sumOfOddNos = getSumOfOddNos(integerList);
+      System.out.println(sumOfOddNos);
+    } catch (Exception e) {
+      System.out.println(e.getClass().getSimpleName());
+    }
   }
 }
