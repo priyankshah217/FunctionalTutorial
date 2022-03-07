@@ -149,6 +149,14 @@ public class ImperativeExample {
     return sum;
   }
 
+  // Handling null checks
+  public SampleObject getSampleObject() {
+    if (sampleObject != null) {
+      return sampleObject;
+    }
+    return new SampleObject("New Object");
+  }
+
   public static void main(String[] args) throws IOException {
 
     var personRecords = JsonHelper.readJsonFile("PersonRecords.json", PersonRecord[].class);
@@ -199,13 +207,5 @@ public class ImperativeExample {
     System.out.println(sampleObject.getName());
     sampleObject = new SampleObject("Overridden Object");
     System.out.println(sampleObject.getName());
-  }
-
-  // Handling null checks
-  public SampleObject getSampleObject() {
-    if (sampleObject != null) {
-      return sampleObject;
-    }
-    return new SampleObject("New Object");
   }
 }

@@ -124,6 +124,11 @@ public class FunctionalExample {
         .reduce(0, Integer::sum);
   }
 
+  // Handling null checks
+  public SampleObject getSampleObject() {
+    return Optional.ofNullable(sampleObject).orElseGet(() -> new SampleObject("New Object"));
+  }
+
   public static void main(String[] args) throws IOException {
 
     var personRecords = JsonHelper.readJsonFile("PersonRecords.json", PersonRecord[].class);
@@ -174,10 +179,5 @@ public class FunctionalExample {
     System.out.println(sampleObject.getName());
     sampleObject = new SampleObject("Overridden Object");
     System.out.println(sampleObject.getName());
-  }
-
-  // Handling null checks
-  public SampleObject getSampleObject() {
-    return Optional.ofNullable(sampleObject).orElseGet(() -> new SampleObject("New Object"));
   }
 }
