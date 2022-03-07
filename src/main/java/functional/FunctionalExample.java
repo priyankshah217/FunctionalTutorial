@@ -1,5 +1,6 @@
 package functional;
 
+import common.SampleObject;
 import helper.JsonHelper;
 import models.Child;
 import models.PersonRecord;
@@ -11,6 +12,8 @@ import java.util.stream.Collectors;
 import static com.pivovarit.function.ThrowingPredicate.unchecked;
 
 public class FunctionalExample {
+
+  private SampleObject sampleObject;
 
   //  Fetch list of names who stays in "Boston" (use of filter)
   public static List<String> getPersonNameWhoStaysInCity(
@@ -165,5 +168,16 @@ public class FunctionalExample {
     } catch (RuntimeException e) {
       System.out.println(e.getClass().getSimpleName());
     }
+
+    var functionalExample = new FunctionalExample();
+    var sampleObject = functionalExample.getSampleObject();
+    System.out.println(sampleObject.getName());
+    sampleObject = new SampleObject("Overridden Object");
+    System.out.println(sampleObject.getName());
+  }
+
+  // Handling null checks
+  public SampleObject getSampleObject() {
+    return Optional.ofNullable(sampleObject).orElseGet(() -> new SampleObject("New Object"));
   }
 }

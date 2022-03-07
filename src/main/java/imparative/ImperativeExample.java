@@ -1,5 +1,6 @@
 package imparative;
 
+import common.SampleObject;
 import helper.JsonHelper;
 import models.Child;
 import models.PersonRecord;
@@ -8,6 +9,8 @@ import java.io.IOException;
 import java.util.*;
 
 public class ImperativeExample {
+
+  private SampleObject sampleObject;
 
   //  Fetch list of names who stays in "Boston"
   public static List<String> getPersonNameWhoStaysInCity(
@@ -190,5 +193,19 @@ public class ImperativeExample {
     } catch (Exception e) {
       System.out.println(e.getClass().getSimpleName());
     }
+
+    var imperativeExample = new ImperativeExample();
+    var sampleObject = imperativeExample.getSampleObject();
+    System.out.println(sampleObject.getName());
+    sampleObject = new SampleObject("Overridden Object");
+    System.out.println(sampleObject.getName());
+  }
+
+  // Handling null checks
+  public SampleObject getSampleObject() {
+    if (sampleObject != null) {
+      return sampleObject;
+    }
+    return new SampleObject("New Object");
   }
 }
