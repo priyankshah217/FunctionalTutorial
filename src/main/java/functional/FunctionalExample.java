@@ -179,5 +179,24 @@ public class FunctionalExample {
     System.out.println(sampleObject.getName());
     sampleObject = new SampleObject("Overridden Object");
     System.out.println(sampleObject.getName());
+
+    //    Map First then do flatten
+    var stringList =
+        List.of("One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten");
+    var stringList2 = new ArrayList<String>();
+    stringList.stream()
+        .map(
+            s ->
+                Arrays.stream(s.toUpperCase().split("")) // Map Operation
+                    .collect(Collectors.toList())) // Flatten Operation
+        .forEach(stringList2::addAll);
+    System.out.println(stringList2);
+
+    //    Flatmap Example
+    var stringList3 =
+        stringList.stream()
+            .flatMap(s -> Arrays.stream(s.toUpperCase().split("")))
+            .collect(Collectors.toList());
+    System.out.println(stringList3);
   }
 }
